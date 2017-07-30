@@ -408,6 +408,12 @@ def load_openmc_mgxs_lib(mgxs_lib, geometry=None):
             material.setSigmaS(sigma)
             py_printf('DEBUG', 'Loaded "nu-scatter matrix" MGXS for "%s %d"',
                       domain_type, domain.id)
+        elif 'ndpp nu-scatter matrix' in mgxs_lib.mgxs_types:
+            mgxs = mgxs_lib.get_mgxs(domain, 'ndpp nu-scatter matrix')
+            sigma = mgxs.get_xs(nuclides='sum', moment=0).flatten()
+            material.setSigmaS(sigma)
+            py_printf('DEBUG', 'Loaded "ndpp nu-scatter matrix" MGXS for "%s %d"',
+                      domain_type, domain.id)
         elif 'consistent scatter matrix' in mgxs_lib.mgxs_types:
             mgxs = mgxs_lib.get_mgxs(domain, 'consistent scatter matrix')
             sigma = mgxs.get_xs(nuclides='sum', moment=0).flatten()
@@ -419,6 +425,12 @@ def load_openmc_mgxs_lib(mgxs_lib, geometry=None):
             sigma = mgxs.get_xs(nuclides='sum', moment=0).flatten()
             material.setSigmaS(sigma)
             py_printf('DEBUG', 'Loaded "scatter matrix" MGXS for "%s %d"',
+                      domain_type, domain.id)
+        elif 'ndpp scatter matrix' in mgxs_lib.mgxs_types:
+            mgxs = mgxs_lib.get_mgxs(domain, 'ndpp scatter matrix')
+            sigma = mgxs.get_xs(nuclides='sum', moment=0).flatten()
+            material.setSigmaS(sigma)
+            py_printf('DEBUG', 'Loaded "ndpp scatter matrix" MGXS for "%s %d"',
                       domain_type, domain.id)
         else:
             py_printf('WARNING', 'No "scatter matrix" or "nu-scatter matrix" '
